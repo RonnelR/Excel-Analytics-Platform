@@ -1,37 +1,29 @@
 import express , {json} from 'express'
 import dotenv from 'dotenv'
 import colors from "colors"
-import mongoose from "mongoose"
+import { databaseConn } from './config/db.js';
+import authRoutes from './routes/authRoutes.js';
 
 //dotenv
 dotenv.config({ debug: true });
 
-
-//mongodb connection
-const databaseConn =async ()=>{
-    try {
-     const conn = await mongoose.connect(process.env.MONGODB_CONN_STRING)
-console.log(`Database connected sucessfuly ${mongoose.connection.host} `.bgCyan.white)
-    } catch (error) {
-        console.log("error in mongodb Connection!")
-    }
-}
+//database Connection
 databaseConn()
-
-
 
 //rest object
 const app = express()
 
-
-
 //middleware
 colors.enable();
-app.use(express.json())  
+app.use(express.json());
+
+//Routes
+app.use('/api/auth',authRoutes);
+
 
 //rest api
 app.get('/',(req,res)=>{
-    res.send('hello World')
+    res.json('hello World')
 })
 
 //port
