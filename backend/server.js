@@ -3,6 +3,7 @@ import dotenv from 'dotenv'
 import colors from "colors"
 import { databaseConn } from './config/db.js';
 import authRoutes from './routes/authRoutes.js';
+import cors from 'cors'
 
 //dotenv
 dotenv.config({ debug: true });
@@ -16,6 +17,10 @@ const app = express()
 //middleware
 colors.enable();
 app.use(express.json());
+app.use(cors({
+                origin: 'http://localhost:3000'
+            }));
+
 
 //Routes
 app.use('/api/auth',authRoutes);

@@ -1,0 +1,27 @@
+{
+  "name": "excel-analytics",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "server": "cd backend && npm start",
+    "client": "cd frontend && npm start",
+    "start": "concurrently \"npm run server\" \"npm run client\""
+
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RonnelR/Excel-Analytics-Platform.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/RonnelR/Excel-Analytics-Platform/issues"
+  },
+  "homepage": "https://github.com/RonnelR/Excel-Analytics-Platform#readme",
+  "dependencies": {
+    "concurrently": "^9.2.0"
+  }
+}

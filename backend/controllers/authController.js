@@ -90,7 +90,6 @@ export const loginController = async (req,res)=>{
         })       
     }
 
-
 try {
 
 //checking for a regisetered user
@@ -131,7 +130,55 @@ res.status(200).json({
 
 }
 
-//testing controller for midddleware
+
+
+
+//-------------Test Controller----------------------------
 export const testController =  (req,res)=>{
     res.status(200).json("testing successful")
 }
+
+
+
+//-------------Forgot Password Controller----------------------------
+export const forgotPasswordController =async (req,res)=>{
+    const {email,password} = req.body;
+    //validation
+    if(!email || !password){
+        return res.status(401).json({
+            success:false,
+            messgae:"Error in email or password"
+        })
+    }
+
+    try {
+        //verifing the email is already registered
+        const user = await userModel.findOne({email})
+
+        if(!user){
+            return  res.status(401).json({
+            success:false,
+            messgae:"Not a user, Register first!"
+        })
+        }
+         //hashing password using bcryptjs
+    const hashPassword = await bcrypt.hash(password,10);
+
+//find the user and updating password
+    const updatedUser = await userModel.findByIdAndUpdate(user._id,{password:hashPassword})
+
+   res.status(200).json({
+            success:true,
+            message:"user details",
+           updatedUser
+         })
+
+    } catch (error) {
+        res.status(400).json({
+            success:false,
+            message:"Error in forgot route",
+            error
+        })
+    }
+}
+
