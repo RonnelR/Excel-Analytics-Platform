@@ -139,6 +139,11 @@ export const testController =  (req,res)=>{
 }
 
 
+//-------------Admin Test Controller----------------------------
+export const adminTestController =  (req,res)=>{
+    res.status(200).json("admin testing successful")
+}
+
 
 //-------------Forgot Password Controller----------------------------
 export const forgotPasswordController =async (req,res)=>{

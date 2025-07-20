@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import {useNavigate} from 'react-router-dom'
-import axios from 'axios'
 import toast, { Toaster } from 'react-hot-toast';
+import { register } from '../Services/api';
 
 const RegistrationPage = () => {
 
@@ -12,7 +12,7 @@ const RegistrationPage = () => {
 
   const Navigate = useNavigate(); 
 
-  const RegistrationSubmit = async(e) =>{
+  const RegistrationSubmit = async (e) =>{
     e.preventDefault();
 
    
@@ -22,11 +22,19 @@ const RegistrationPage = () => {
        if(password !== confirmPassword){
        toast.error("password does't match")
     }else{
-const res = await axios.post('http://localhost:8080/api/auth/registration',{name,email,password})
-    if(res&&res.data.success){
+  
+     const data ={
+      name,
+      email,
+      password
+     }
+     const res = await register(data)
+     
+     if(res && res.data.success){
+      
        toast.success('Registration successful')
        console.log(res.data)
-       setEmail('')
+       setName('')
        setEmail('')
        setPassword('')
       setConfirmPassword('')

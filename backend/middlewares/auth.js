@@ -1,9 +1,10 @@
 //checks for valid tokens
 import jwt from 'jsonwebtoken'
 
-export const auth = async (req,res,next)=>{
+export const isSignInRequired = async (req,res,next)=>{
 
-//getting token from headers
+
+//getting token from headers ,middleware for sign in check
 const token = req.headers.authorization;
 
 if(!token){
@@ -27,4 +28,26 @@ try {
     })
 }
 
+}
+
+//Checking admin middleware
+export const isAdmin = (req,res,next) =>{
+    try {
+        const user = req.user;
+if(user.role !== 'admin' ){
+      res.status(401).json({
+        success:false,
+        message:'Unauthorized user',
+    })
+}else{
+    next()
+}
+
+    } catch (error) {
+          res.status(401).json({
+        success:false,
+        message:'Something went wrong!',
+        error
+    })
+    }
 }

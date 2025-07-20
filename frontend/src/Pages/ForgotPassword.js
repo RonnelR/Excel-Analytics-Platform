@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import {useNavigate} from 'react-router-dom'
-import axios from 'axios'
 import toast, { Toaster } from 'react-hot-toast';
+import { forgot_password } from '../Services/api';
 
 const Forgotpassword = () => {
 
@@ -24,7 +24,12 @@ const Forgotpassword = () => {
         if(password !== confirmPassword){
        toast.error("password does't match")
     }else{
-const res = await axios.put('http://localhost:8080/api/auth/forgot-password',{email,password})
+      const data={
+        email,
+        password
+      }
+     const res = await forgot_password(data)
+
     if(res&&res.data.success){
 
        toast.success('Password changed successfuly')

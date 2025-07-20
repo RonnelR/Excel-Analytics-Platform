@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import {useNavigate} from 'react-router-dom'
-import axios from 'axios'
 import toast, { Toaster } from 'react-hot-toast';
+import { login } from '../Services/api';
 
 const LoginPage = () => {
 
@@ -10,17 +10,24 @@ const LoginPage = () => {
 
   const Navigate = useNavigate(); 
 
-  const LoginSubmit = async(e) =>{
+  const LoginSubmit = async (e) =>{
     e.preventDefault();
+ 
 
     try {  
-      const res = await axios.post('http://localhost:8080/api/auth/login',{email,password})
+ 
+ const data ={
+  email,
+  password
+ }
+ const res = await login(data)
+
     if(res&&res.data.success){
 
       //store jwt on localstorge
       localStorage.setItem('authToken',res.data?.token)
 
-       toast.success('Login successful')
+       toast.success( 'Login successful')
        console.log(res.data.token)
        setEmail('')
        setPassword('')
