@@ -3,6 +3,8 @@ import dotenv from 'dotenv'
 import colors from "colors"
 import { databaseConn } from './config/db.js';
 import authRoutes from './routes/authRoutes.js';
+import fileUploadRoute from './routes/fileUploadRoute.js'
+
 import cors from 'cors'
 
 //dotenv
@@ -24,6 +26,7 @@ app.use(cors({
 
 //Routes
 app.use('/api/auth',authRoutes);
+app.use('/api/file',fileUploadRoute);
 
 
 //rest api

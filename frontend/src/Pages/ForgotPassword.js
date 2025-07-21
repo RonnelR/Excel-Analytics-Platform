@@ -9,19 +9,15 @@ const Forgotpassword = () => {
   const [password,setPassword] = useState('')
   const [confirmPassword,setConfirmPassword] = useState('')
 
-
   const Navigate = useNavigate(); 
-
-
 
   const ForgotPasswordSubmit = async(e) =>{
     e.preventDefault();
 
-    
-
     try {  
+
 //checking password and confirm password
-        if(password !== confirmPassword){
+    if(password !== confirmPassword){
        toast.error("password does't match")
     }else{
       const data={
