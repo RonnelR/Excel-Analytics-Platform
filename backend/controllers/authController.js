@@ -116,8 +116,13 @@ const token = jwt.sign({id:registeredUser._id,role:registeredUser.role},process.
 res.status(200).json({
     success:true,
     message:"Login successful!",
-    token,
-    role:registeredUser.role
+    user:{
+            _id: registeredUser._id,
+            name: registeredUser.name,
+            email: registeredUser.email,
+            role: registeredUser.role
+    },token
+  
 })
 
 } catch (error) {

@@ -1,19 +1,23 @@
-import React, { useState } from 'react'
+import React, { useState} from 'react'
 import {useNavigate} from 'react-router-dom'
 import toast, { Toaster } from 'react-hot-toast';
 import { login } from '../Services/api';
+import {useDispatch } from 'react-redux';
+import {setUser} from '../Redux/userSlice'
 
 const LoginPage = () => {
 
   const [email,setEmail] = useState('')
   const [password,setPassword] = useState('')
 
+  //const user = useSelector(state=>state.user.user)
+  const dispatch = useDispatch()
+
   const Navigate = useNavigate(); 
 
   const LoginSubmit = async (e) =>{
     e.preventDefault();
  
-
     try {  
  
  const data ={
@@ -24,17 +28,22 @@ const LoginPage = () => {
 
     if(res&&res.data.success){
 
-      //store jwt on localstorge
-      localStorage.setItem('authToken',res.data?.token)
+      //setting login user value globally
+      dispatch(setUser({
+        user : res.data.user,
+        token : res.data.token
+    })) 
+
+      //store user on localstorges
+      localStorage.setItem('auth',JSON.stringify(res.data))
 
        toast.success( 'Login successful')
-       console.log(res.data.token)
        setEmail('')
        setPassword('')
-       if(res.data.role === 'admin'){
+       if(res.data.user.role === 'admin'){
  Navigate('/adminDashboard')
        }else{
- Navigate('/dashboard')
+ Navigate('/dashboard/user')
        }
      
     }
@@ -45,7 +54,6 @@ const LoginPage = () => {
     }
   }
     
-
   return (
     <>
   <div className='loginPage'>
@@ -75,7 +83,6 @@ const LoginPage = () => {
     </>
 
   </div>
- 
  
        <Toaster />
     </>

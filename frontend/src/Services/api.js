@@ -6,4 +6,6 @@ const API = axios.create({baseURL:'http://localhost:8080'})
 export const login =(data)=>API.post('/api/auth/login',data)
 export const register =(data)=>API.post('/api/auth/registration',data)
 export const forgot_password =(data)=>API.put('/api/auth/forgot-password',data)
- 
+export const upload_file = (data,config)=>API.post('/api/file/upload-file',data,config)
+export const private_Route = (config)=>API.get('/api/auth/user-auth/',config)
+export const excel_data = (fileId)=>API.get(`/api/file/single-excel-data/${fileId}`)

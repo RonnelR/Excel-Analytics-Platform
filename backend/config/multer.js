@@ -19,13 +19,12 @@ import path from 'path'
     const fileFilter = (req,file,cb) =>{
         const ext = path.extname(file.originalname)
 
-       // if(ext != '.xlsx' || ext != '.xls' ){
-        if(ext !== '.xlsx' ){
+        if(ext !== '.xlsx'){
 
         return cb(new Error("Plese upload an excel file"),false);
-        console.log('not an excel file')
+     
         }
-        console.log('excel file')
+
         cb(null,true)
     };
     const upload = multer({
