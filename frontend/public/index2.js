@@ -1,36 +1,9 @@
-
 import React from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { UploadCloud, LayoutDashboard, FileText } from "lucide-react";
-import {Routes,Route} from 'react-router-dom'
-import LoginPage from './Pages/LoginPage';
-import RegistrationPage from './Pages/RegistrationPage';
-import LandingPage from './Pages/LandingPage';
-import PageNotFound from './Pages/PageNotFound';
-import AdminDashboard from './Pages/Admin Pages/AdminDashboard';
-import UserDashboard from './Pages/User Pages/UserDashboard';
-import Forgotpassword from './Pages/ForgotPassword';
-function App() {
-  return (
-    <div className="App">
-     <>
-     <Routes>
-      <Route path='/login' element={<LoginPage/>}  />
-      <Route path='/registraion' element={<RegistrationPage/>}  />
-      <Route path='/' element={<LandingPage/>}  />
-      <Route path='*' element={<PageNotFound/>}  />
-      <Route path='/adminDashboard' element={<AdminDashboard/>}  />
-      <Route path='/dashboard' element={<UserDashboard/>}  />
-      <Route path='/forgot-password' element={<Forgotpassword/>}  />
 
-
-     </Routes>
-     </>
-    </div>
-  );
-}
-
-
-function Dashboard() {
+export default function Dashboard() {
   return (
     <div className="flex h-screen bg-gray-100">
       {/* Sidebar */}
@@ -55,23 +28,28 @@ function Dashboard() {
         <p className="text-gray-600 mb-6">Here's a quick overview of your data.</p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-          <div className="bg-white p-6 rounded shadow text-center">
-            <h2 className="text-lg font-medium">0</h2>
-            <p className="text-gray-600">Uploaded Files</p>
-          </div>
-          <div className="bg-white p-6 rounded shadow text-center">
-            <h2 className="text-lg font-medium">7</h2>
-            <p className="text-gray-600">Different Charts</p>
-          </div>
+          <Card>
+            <CardContent className="p-6 text-center">
+              <h2 className="text-lg font-medium">0</h2>
+              <p className="text-gray-600">Uploaded Files</p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardContent className="p-6 text-center">
+              <h2 className="text-lg font-medium">7</h2>
+              <p className="text-gray-600">Different Charts</p>
+            </CardContent>
+          </Card>
         </div>
 
         <section>
           <h2 className="text-xl font-medium mb-4">Your Recent Files:</h2>
           <div className="bg-white p-6 rounded-lg shadow-md">
             <p className="text-gray-500 mb-4">No files found.</p>
-            <button className="px-4 py-2 border border-gray-300 rounded flex items-center gap-2 hover:bg-gray-100">
+            <Button variant="outline" className="flex items-center gap-2">
               <UploadCloud size={18} /> Upload File
-            </button>
+            </Button>
           </div>
         </section>
 
@@ -82,8 +60,3 @@ function Dashboard() {
     </div>
   );
 }
-
-export default Dashboard;
-
-
-// export default App;
