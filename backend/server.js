@@ -4,6 +4,7 @@ import colors from "colors"
 import { databaseConn } from './config/db.js';
 import authRoutes from './routes/authRoutes.js';
 import fileUploadRoute from './routes/fileUploadRoute.js'
+import morgan from 'morgan';
 
 import cors from 'cors'
 
@@ -22,6 +23,7 @@ app.use(express.json());
 app.use(cors({
                 origin: 'http://localhost:3000'
             }));
+app.use(morgan('dev'))
 
 
 //Routes
@@ -35,7 +37,7 @@ app.get('/',(req,res)=>{
 })
 
 //port
-const PORT = process.env.SERVER_PORT;
+const PORT = process.env.PORT;
 
 //server
 app.listen(PORT,()=>{

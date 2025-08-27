@@ -1,21 +1,23 @@
 import React, { useState } from "react";
-import Header from "./Header";
-import Sidebar from "./sidebar";
+import Header from "../Header";
+import AdminSidebar from "./adminSidebar";
+// import {Helmet} from "react-helmet";
 
 
-const Layout = ({ children ,title,description,keywords,author }) => {
+
+const AdminLayout = ({ children ,title,description,keywords,author }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
-{/* 
-            <Helmet>
+            {/* <Helmet>
                 <meta charSet="utf-8" />
                 <meta name="description" content={description} />
                 <meta name="keywords" content={keywords} />
                 <meta name="author" content={author} />
                 <title>{title}</title>
             </Helmet> */}
+
 
       {/* Header */}
       <Header
@@ -24,7 +26,7 @@ const Layout = ({ children ,title,description,keywords,author }) => {
       />
 
       <div className="flex flex-1 pt-16">
-        {/* Sidebar */}
+        {/* Admin Sidebar */}
         <aside
           className={`fixed md:flex top-16 left-0 h-full p-4 w-64 
           bg-white border-r border-gray-200 shadow-sm 
@@ -32,7 +34,7 @@ const Layout = ({ children ,title,description,keywords,author }) => {
           ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} 
           md:translate-x-0`}
         >
-          <Sidebar />
+          <AdminSidebar/>
         </aside>
 
         {/* Main Content */}
@@ -54,11 +56,11 @@ const Layout = ({ children ,title,description,keywords,author }) => {
   );
 };
 
-// Layout.defaultProps = {
+// AdminLayout.defaultProps = {
 //   title: "RedGraph",
 //   description: 'Excel analytics project',
 //   keywords: 'mern,mongodb,express,react,node,excel,analytics,charts,graphs,3d charts',
 //   author: "REDGRAPH"
 // }
 
-export default Layout;
+export default AdminLayout;

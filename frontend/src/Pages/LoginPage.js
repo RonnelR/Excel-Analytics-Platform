@@ -1,93 +1,133 @@
-import React, { useState} from 'react'
-import {useNavigate} from 'react-router-dom'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
 import { login } from '../Services/api';
-import {useDispatch } from 'react-redux';
-import {setUser} from '../Redux/userSlice'
+import { useDispatch } from 'react-redux';
+import { setUser } from '../Redux/userSlice';
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
+import {Helmet} from "react-helmet";
+
+
 
 const LoginPage = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const [email,setEmail] = useState('')
-  const [password,setPassword] = useState('')
-
-  //const user = useSelector(state=>state.user.user)
-  const dispatch = useDispatch()
-
-  const Navigate = useNavigate(); 
-
-  const LoginSubmit = async (e) =>{
+  const LoginSubmit = async (e) => {
     e.preventDefault();
- 
-    try {  
- 
- const data ={
-  email,
-  password
- }
- const res = await login(data)
+    try {
+      const data = { email, password };
+      const res = await login(data);
 
-    if(res&&res.data.success){
+      if (res && res.data.success) {
+        dispatch(setUser({ user: res.data.user, token: res.data.token }));
+        localStorage.setItem('auth', JSON.stringify(res.data));
+        toast.success('Login successful');
+      navigate(`/dashboard/${res.data.user?.role === 'admin' ? "admin" : "user"}`);
 
-      //setting login user value globally
-      dispatch(setUser({
-        user : res.data.user,
-        token : res.data.token
-    })) 
-
-      //store user on localstorges
-      localStorage.setItem('auth',JSON.stringify(res.data))
-
-       toast.success( 'Login successful')
-       setEmail('')
-       setPassword('')
-       if(res.data.user.role === 'admin'){
- Navigate('/adminDashboard')
-       }else{
- Navigate('/dashboard/user')
-       }
-     
+        setEmail('');
+        setPassword('');
+    }else{
+      toast.error('Plese register first')
     }
-
-  } catch (error) {
-      console.log(error)
-       toast.error('Something went wrong!!')
+    } catch (error) {
+      console.log(error);
+      toast.error('check password or email');
     }
-  }
-    
+  };
+
   return (
-    <>
-  <div className='loginPage'>
-  <h2  className="text-3xl text-center font-bold text-red-700 pt-4 " onClick={()=>{Navigate('/')}} >RedGraph</h2>
-    <>
+    <div className="flex items-center justify-center min-h-screen bg-[#F6F7EB] px-4">
+    <Helmet>
+                   <meta charSet="utf-8" />
+                   <title>RedGraph | Login</title>
+               </Helmet>
+      <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
+        <h2
+          className="text-4xl font-extrabold text-[#E94F37] mb-4 text-center cursor-pointer"
+          onClick={() => navigate('/')}
+        >
+          RedGraph
+        </h2>
 
-<form className="text-center p-4 " onSubmit={LoginSubmit}>
-  <h4>Login into  your  account</h4>
-<div>
-<label>Email</label>
-    <input type='email' className='border-2 border-gray-400 foucs: outline-red-300 rounded-md' id='inputName' value={email} onChange={(e)=>{setEmail(e.target.value)}} placeholder='Enter your Name....'/>
-</div>
+        <form onSubmit={LoginSubmit} className="space-y-6">
+          <h4 className="text-lg font-semibold text-gray-800 text-center">
+            Login into your account
+          </h4>
 
-<div>
-<label>Password</label>
-    <input type='password' className='border-2 border-gray-400 foucs: outline-red-300 rounded-md' id='inputPassword' value={password} onChange={(e)=>{setPassword(e.target.value)}} placeholder='Enter your password....'/>
-</div>
-<p onClick={()=>{Navigate('/forgot-password')}} className='font-semibold text-red-500 hover:underline' >Forget Password ?</p>
-<button className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900" type='submit'>sign in</button>
-   
-   <>
-    <p>Dont have an account ? </p><p onClick={()=>{Navigate('/registraion')}} className='font-semibold text-red-500 hover:underline'>Sign Up</p>
+          {/* Email */}
+          <div>
+            <label className="block text-gray-700 font-medium mb-1">Email</label>
+            <input
+              type="email"
+              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#E94F37]"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter your email..."
+              required
+            />
+          </div>
 
-   </>
-</form>
+          {/* Password */}
+          <div className="relative">
+            <label className="block text-gray-700 font-medium mb-1">Password</label>
+            <input
+              type={showPassword ? 'text' : 'password'}
+              className="w-full border border-gray-300 rounded-lg px-4 py-2 pr-10 focus:outline-none focus:ring-2 focus:ring-[#E94F37]"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter your password..."
+              required
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-9 text-gray-500 hover:text-[#E94F37]"
+            >
+              {showPassword ? (
+                <EyeSlashIcon className="h-5 w-5" />
+              ) : (
+                <EyeIcon className="h-5 w-5" />
+              )}
+            </button>
+          </div>
 
-    </>
+          {/* Forgot Password */}
+          <p
+            onClick={() => navigate('/forgot-password')}
+            className="text-sm text-[#E94F37] font-semibold hover:underline cursor-pointer text-right"
+          >
+            Forgot Password?
+          </p>
 
-  </div>
- 
-       <Toaster />
-    </>
-   
-  )
-}
+          {/* Submit */}
+          <button
+            type="submit"
+            className="w-full bg-[#E94F37] text-white font-semibold py-2 rounded-lg hover:bg-red-600 transition"
+          >
+            Sign In
+          </button>
 
-export default LoginPage
+          {/* Sign Up */}
+          <div className="text-center text-sm">
+            <p className="text-gray-600">
+              Don’t have an account?{' '}
+              <span
+                onClick={() => navigate('/registraion')}
+                className="text-[#E94F37] font-semibold hover:underline cursor-pointer"
+              >
+                Sign Up
+              </span>
+            </p>
+          </div>
+        </form>
+      </div>
+      <Toaster />
+    </div>
+  );
+};
+
+export default LoginPage;

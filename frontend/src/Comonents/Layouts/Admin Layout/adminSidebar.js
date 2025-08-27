@@ -1,16 +1,22 @@
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Files, FileUp, LayoutDashboard } from 'lucide-react'
+import { Files, LayoutDashboard, Users } from 'lucide-react'
 
-const Sidebar = () => {
+const AdminSidebar = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
   const menuItems = [
     { logo: <LayoutDashboard />, 
-  label: "DASHBOARD", path: "/dashboard/user" },
-    { logo: <FileUp />, label: "UPLOAD FILES", path: "/dashboard/user/Upload-file" },
-    { logo: <Files />, label: "UPLOADED FILES", path: "/dashboard/user/Uploaded-files" },
+  label: "DASHBOARD",
+   path: "/dashboard/admin"
+ },{logo: <Users />, 
+  label: "All USER",
+  path: "/dashboard/admin/all-users"},
+  {logo: <Files />,  
+  label: "All FILES",
+   path: "/dashboard/admin/all-files"}
+    
   ];
 
   return (
@@ -37,4 +43,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default AdminSidebar;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Layout from "../../Comonents/Layouts/Layout";
+
 import {
   Dialog,
   DialogBackdrop,
@@ -7,19 +7,18 @@ import {
   DialogTitle,
 } from "@headlessui/react";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
-import { ChartSpline, FileInput, FileX2, Trash2 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-import { Delete_File, User_Files } from "../../Services/api";
-import { useDispatch, useSelector } from "react-redux";
-import toast from "react-hot-toast";
-import { setExcelData } from "../../Redux/excelDataSlice";
+import {FileX2, Trash2 } from "lucide-react";
 
-const UploadedFile = () => {
-  const user = useSelector((state) => state.user.user);
+import { All_Files, Delete_File } from "../../Services/api";
+import { useSelector } from "react-redux";
+import toast from "react-hot-toast";
+import AdminLayout from "../../Comonents/Layouts/Admin Layout/adminLayout";
+
+const AllFiles = () => {
+
+   const user = useSelector((state) => state.user.user);
   const token = useSelector((state) => state.user.token);
 
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const [open, setOpen] = useState(false);
   const [files, setFiles] = useState([]);
@@ -29,8 +28,8 @@ const UploadedFile = () => {
   // Fetch uploaded files
   const fetchFiles = async () => {
     try {
-      if (user?._id) {
-        const res = await User_Files(user?._id, token);
+      if (token) {
+        const res = await All_Files(token);
         if (res?.data) {
           setFiles(res.data.allFiles);
           console.log(res.data.allFiles);
@@ -66,45 +65,23 @@ const UploadedFile = () => {
       toast.error("Something went wrong!");
     }
   };
-
-  //handle create chart
-  const handleCreateChart = (data)=>{
-    if(data){
-      localStorage.setItem("excel", JSON.stringify(data));
-
-         dispatch(setExcelData(data))
-         navigate('/dashboard/user/Upload-file')
-    }
-     
-  }
-
+ 
+  
   return (
-    <Layout>
-      <div className="p-6 max-w-6xl mx-auto">
+    <AdminLayout>
+ <div className="p-6 max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-6">
-          <h1 className="text-2xl font-bold text-red-500">Monitor History</h1>
-          <p className="text-gray-600">
-            Monitor your file access and deletion activity in real-time
-          </p>
+          <h1 className="text-2xl font-bold text-red-500">All Files</h1>
         </div>
 
         {/* Upload button */}
         <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-4">
           <div className="flex justify-between">
             <p className="text-left font-bold text-xl text-red-500">
-              Recent Uploaded Files
+              List of Files
             </p>
 
-            <div className="flex justify-center">
-              <button
-                onClick={() => navigate("/dashboard/user/Upload-file")}
-                className="flex gap-2 mt-3 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
-              >
-                <FileInput />
-                Upload File
-              </button>
-            </div>
           </div>
 
           {/* No File State */}
@@ -115,15 +92,7 @@ const UploadedFile = () => {
               </div>
               <p className="font-bold text-gray-600">No file found</p>
 
-              <div className="flex justify-center">
-                <button
-                  onClick={() => navigate("/dashboard/user/Upload-file")}
-                  className="flex gap-2 mt-3 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
-                >
-                  <FileInput />
-                  Upload New File
-                </button>
-              </div>
+             
             </div>
           ) : (
             <div className="mt-6 space-y-4">
@@ -150,12 +119,10 @@ const UploadedFile = () => {
                       <Trash2 />
                       Delete
                     </button>
-                    <button 
-                    onClick={()=>handleCreateChart(file?.data)}
-                     className="flex items-center gap-1 px-2 py-2 bg-gray-500 text-white rounded-lg hover:bg-red-600 transition">
+                    {/* <button className="flex items-center gap-1 px-2 py-2 bg-gray-500 text-white rounded-lg hover:bg-red-600 transition">
                       <ChartSpline />
                       Create Chart
-                    </button>
+                    </button> */}
                   </div>
                 </div>
               ))}
@@ -208,8 +175,10 @@ const UploadedFile = () => {
           </div>
         </Dialog>
       </div>
-    </Layout>
-  );
-};
+    </AdminLayout>
+   
+  )
+}
 
-export default UploadedFile;
+export default AllFiles;
+

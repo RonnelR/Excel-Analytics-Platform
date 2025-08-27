@@ -7,7 +7,6 @@
     "server": "cd backend && npm start",
     "client": "cd frontend && npm start",
     "start": "concurrently \"npm run server\" \"npm run client\""
-
   },
   "repository": {
     "type": "git",
