@@ -5,7 +5,7 @@ import { login } from '../Services/api';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../Redux/userSlice';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
-import {Helmet} from "react-helmet";
+
 
 
 
@@ -41,10 +41,7 @@ const LoginPage = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-[#F6F7EB] px-4">
-    <Helmet>
-                   <meta charSet="utf-8" />
-                   <title>RedGraph | Login</title>
-               </Helmet>
+   
       <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
         <h2
           className="text-4xl font-extrabold text-[#E94F37] mb-4 text-center cursor-pointer"

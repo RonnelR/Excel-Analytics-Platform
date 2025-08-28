@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Search, AlertTriangle } from "lucide-react";
 import { motion } from "framer-motion";
-import {Helmet} from "react-helmet";
+
 
 
 const NotFoundPage = () => {
@@ -16,10 +16,7 @@ const NotFoundPage = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
-    <Helmet>
-                       <meta charSet="utf-8" />
-                       <title>RedGraph | Forgot Password</title>
-                   </Helmet>
+  
       {/* Icon illustration */}
       <motion.div
         className="flex items-center justify-center bg-red-100 p-6 rounded-full shadow-md"

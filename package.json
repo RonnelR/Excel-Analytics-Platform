@@ -22,5 +22,6 @@
   "homepage": "https://github.com/RonnelR/Excel-Analytics-Platform#readme",
   "dependencies": {
     "concurrently": "^9.2.0"
+
   }
 }

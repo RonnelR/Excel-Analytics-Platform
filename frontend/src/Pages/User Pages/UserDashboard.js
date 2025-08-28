@@ -136,15 +136,7 @@ const UserDashboard = () => {
               Recent Uploaded Files
             </p>
 
-            {/* <div className="flex justify-center">
-              <button
-                onClick={() => navigate("/dashboard/user/Upload-file")}
-                className="flex gap-2 mt-3 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
-              >
-                <FileInput />
-                Upload File
-              </button>
-            </div> */}
+        
           </div>
 
           {/* No File State */}

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
 import { register } from '../Services/api';
-import {Helmet} from "react-helmet";
 
 
 const RegistrationPage = () => {
@@ -46,10 +45,6 @@ const RegistrationPage = () => {
   return (
     <>
       <div className="flex justify-center items-center min-h-screen bg-[#F6F7EB] px-4">
-      <Helmet>
-                   <meta charSet="utf-8" />
-                   <title>RedGraph | Register</title>
-               </Helmet>
         <div className="bg-white p-8 md:p-10 rounded-2xl shadow-xl w-full max-w-md">
           {/* Brand Title */}
          <h2

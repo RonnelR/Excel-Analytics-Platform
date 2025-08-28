@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import Header from "../Header";
 import AdminSidebar from "./adminSidebar";
-// import {Helmet} from "react-helmet";
-
 
 
 const AdminLayout = ({ children ,title,description,keywords,author }) => {
@@ -10,13 +8,7 @@ const AdminLayout = ({ children ,title,description,keywords,author }) => {
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
-            {/* <Helmet>
-                <meta charSet="utf-8" />
-                <meta name="description" content={description} />
-                <meta name="keywords" content={keywords} />
-                <meta name="author" content={author} />
-                <title>{title}</title>
-            </Helmet> */}
+         
 
 
       {/* Header */}
@@ -56,11 +48,6 @@ const AdminLayout = ({ children ,title,description,keywords,author }) => {
   );
 };
 
-// AdminLayout.defaultProps = {
-//   title: "RedGraph",
-//   description: 'Excel analytics project',
-//   keywords: 'mern,mongodb,express,react,node,excel,analytics,charts,graphs,3d charts',
-//   author: "REDGRAPH"
-// }
+
 
 export default AdminLayout;
