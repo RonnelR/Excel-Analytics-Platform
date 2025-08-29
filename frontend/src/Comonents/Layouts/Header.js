@@ -77,7 +77,7 @@ const [open, setOpen] = useState(false);
 
      {user?.photo ?  
             <img
-                src={`http://localhost:8080/api/auth/user-photo/${user._id}?t=${Date?.now()}`}
+                src={`${process.env.REACT_APP_API_URL}/api/auth/user-photo/${user._id}?t=${Date?.now()}`}
                 alt="avatar"
                 className="w-9 h-9 rounded-full object-cover border-2 border-red-400"
               />

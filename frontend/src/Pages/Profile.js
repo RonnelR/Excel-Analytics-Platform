@@ -125,7 +125,7 @@ const ProfileForm = ({ user, token }) => {
               />
             ) : user?.photo ? (
               <img
-                src={`http://localhost:8080/api/auth/user-photo/${user._id}?t=${photoTimestamp}`}
+                src={`${process.env.REACT_APP_API_URL}/api/auth/user-photo/${user._id}?t=${photoTimestamp}`}
                 alt="avatar"
                 className="w-24 h-24 rounded-full object-cover border-2 border-red-400"
               />
