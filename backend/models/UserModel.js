@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
         unique:true,
         sparse:true
     },
-        photo: {
+    photo: {
         data: Buffer,
         contentType: String
         },

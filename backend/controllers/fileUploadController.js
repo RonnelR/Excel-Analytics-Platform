@@ -23,13 +23,12 @@ export const uploadFileController = async (req,res) => {
     const AvailableFile = req.file;
 
 if (AvailableFile) {
-
+ 
 //file path set
     const filePath = path.resolve('uploads',AvailableFile.filename)
     //excel data parsed
    const parsedData = excelParser(filePath)
-
-
+  
     //stored in mongoDB 
     const excelData = await excelDataModel.create({
          fileName:AvailableFile.filename,
@@ -141,7 +140,7 @@ export const userFileController = async (req, res) => {
 //-------------all filescontroller-----------------------
 export const allFilesController = async (req,res) =>{
       try {
-        const allFiles = await excelDataModel.find({})
+        const allFiles = await excelDataModel.find({}).sort({ createdAt: -1 });
         if(allFiles){
            res.status(200).json({
           success:true,

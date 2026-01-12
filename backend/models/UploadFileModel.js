@@ -9,7 +9,6 @@ const excelDataSchema = new mongoose.Schema({
      createdBy:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'user',
-    
 },
     data:[mongoose.Schema.Types.Mixed]
 },{timestamps:true})

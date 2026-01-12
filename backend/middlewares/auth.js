@@ -4,7 +4,6 @@ import jwt from 'jsonwebtoken'
 export const isSignInRequired = async (req,res,next)=>{
 
 try {
-
     //getting token from headers ,middleware for sign in check
 const authHeader = req.headers.authorization;
 
@@ -15,10 +14,7 @@ if(!authHeader || !authHeader.startsWith('Bearer ') ){
     })
 }
 
-
 const token = req.headers.authorization?.split(" ")[1];
-
-
 
     //verifing token
     const verified = await jwt.verify(token,process.env.JWT_SECRET)

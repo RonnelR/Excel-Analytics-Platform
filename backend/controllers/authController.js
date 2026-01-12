@@ -110,7 +110,6 @@ if(!comparePassword){
         }) 
 }
 
-
 //token creation
 const token = jwt.sign({id:registeredUser._id,role:registeredUser.role},process.env.JWT_SECRET,{expiresIn:'7d'})
 
@@ -141,22 +140,8 @@ res.status(200).json({
 }
 
 
-
-
-//-------------Test Controller----------------------------
-export const testController =  (req,res)=>{
-    res.status(200).json("testing successful")
-}
-
-
-//-------------Admin Test Controller----------------------------
-export const adminTestController =  (req,res)=>{
-    res.status(200).json("admin testing successful")
-}
-
-
 //-------------Forgot Password Controller----------------------------
-export const forgotPasswordController =async (req,res)=>{
+export const forgotPasswordController = async (req,res)=>{
     const {email,password} = req.body;
     //validation
     if(!email || !password){
@@ -283,7 +268,7 @@ export const userPhotoController = async (req,res) =>{
 
 export const allUsersController = async (req,res) =>{
 try {
-    // const allUsers = await userModel.find({ role: "user" }).select("-photo");
+    
     const allUsers = await userModel.find({}).select("-photo");
 
     if (!allUsers) {

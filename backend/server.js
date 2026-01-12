@@ -1,4 +1,4 @@
-import express , {json} from 'express'
+import express from 'express'
 import dotenv from 'dotenv'
 import colors from "colors"
 import { databaseConn } from './config/db.js';
@@ -17,10 +17,9 @@ databaseConn()
 //rest object
 const app = express()
 
-
 const allowedOrigins = [
   "http://localhost:3000",         // local dev
-  "https://effervescent-shortbread-431c3b.netlify.app"  // deployed frontend
+  "https://redgraph.netlify.app"  // deployed frontend
 ];
 
 //middleware
@@ -42,7 +41,6 @@ app.use(morgan('dev'))
 //Routes
 app.use('/api/auth',authRoutes);
 app.use('/api/file',fileUploadRoute);
-
 
 //rest api
 app.get('/',(req,res)=>{
