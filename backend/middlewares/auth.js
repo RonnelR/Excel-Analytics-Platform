@@ -22,7 +22,7 @@ const token = req.headers.authorization?.split(" ")[1];
     next()
 
 } catch (error) {
-    return res.status(401).json({
+    return res.status(500).json({
         success:false,
         message:'Something went wrong!',
         error

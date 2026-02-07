@@ -6,14 +6,18 @@ import formidable from 'express-formidable';
 
 const router = express.Router();
 
-//router for registration
+//routers
 router.post('/registration',registerController)
 router.post('/login',loginController)
 router.put('/forgot-password',forgotPasswordController)
+
 router.get('/user-auth',isSignInRequired,(req,res)=>{res.status(200).json({ok:true})})
 router.get('/admin-auth',isSignInRequired,isAdmin, (req,res)=>{res.status(200).json({ok:true})})
+
 router.put('/update-profile/:id',isSignInRequired,formidable(),updateProfileController)
 router.get('/user-photo/:id',userPhotoController)
+
+//admin routers
 router.get('/all-users',isSignInRequired,isAdmin,allUsersController)
 router.delete('/delete-user/:id',isSignInRequired,isAdmin,deleteUserController)
 router.patch('/update-role/:id',isSignInRequired,isAdmin,updateRoleController)

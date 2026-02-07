@@ -6,7 +6,7 @@ import { isAdmin, isSignInRequired } from "../middlewares/auth.js";
 //router config
 const router = express.Router()
 router.post('/upload-file',isSignInRequired, upload.single('file'),uploadFileController);
-router.get('/single-excel-data/:fileId',singleExcelDataController);
+router.get('/single-excel-data/:fileId',isSignInRequired,singleExcelDataController);
 router.get('/user-files/:id',isSignInRequired,userFileController)
 router.get('/all-files',isSignInRequired,isAdmin,allFilesController)
 router.delete(`/delete-file/:id`,isSignInRequired,deleteFileController)

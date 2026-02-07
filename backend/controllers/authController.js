@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import fs from 'fs'
 
 
-//-------------------register controller---------------------
+//------------------- register controller ---------------------
 
 export const registerController = async (req,res)=>{
 
@@ -16,7 +16,6 @@ export const registerController = async (req,res)=>{
             success:false,
             message:"name is required!"
         })
-        
     }
 
     if(!email){
@@ -67,7 +66,6 @@ export const registerController = async (req,res)=>{
     }
 
 }
-
 
 //-------------Login Controller----------------------------
 
@@ -138,7 +136,6 @@ res.status(200).json({
 }
 
 }
-
 
 //-------------Forgot Password Controller----------------------------
 export const forgotPasswordController = async (req,res)=>{
@@ -241,7 +238,7 @@ export const updateProfileController = async (req, res) => {
     });
   }
 };
-
+  
 //-------------get photo Controller----------------------------
 
 export const userPhotoController = async (req,res) =>{

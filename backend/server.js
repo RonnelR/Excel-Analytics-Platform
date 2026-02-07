@@ -5,7 +5,6 @@ import { databaseConn } from './config/db.js';
 import authRoutes from './routes/authRoutes.js';
 import fileUploadRoute from './routes/fileUploadRoute.js'
 import morgan from 'morgan';
-
 import cors from 'cors'
 
 //dotenv
@@ -18,13 +17,13 @@ databaseConn()
 const app = express()
 
 const allowedOrigins = [
-  "http://localhost:3000",         // local dev
+  "http://localhost:3000",        // local dev
   "https://redgraph.netlify.app"  // deployed frontend
 ];
 
 //middleware
 colors.enable();
-app.use(express.json());
+app.use(express.json()); 
 app.use(cors({
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
